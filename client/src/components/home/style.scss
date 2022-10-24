@@ -1,0 +1,120 @@
+@import "../../global-styles/global";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.background {
+  @include flex;
+  margin: auto;
+  height: 100vh;
+  position: relative;
+  background: url(../../assets/images/sky.jpg) no-repeat top center;
+}
+
+.title {
+  h4 {
+    font-size: 40px;
+    color: var(--white);
+    background: -webkit-linear-gradient(#fff, #aaa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 6px 6px 0px rgba(35, 143, 201, 0.2);
+    display: block;
+    position: relative;
+    z-index: 3;
+  }
+}
+
+@keyframes move-clouds-back {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 10000px 0;
+  }
+}
+
+@keyframes move-sun-curve {
+  0% {
+    filter: brightness(10%);
+    top: -25%;
+    right: 68%;
+  }
+  50% {
+    top: -17%;
+    right: 5%;
+    filter: brightness(100%);
+  }
+  55% {
+    top: -15%;
+    right: 0%;
+  }
+  60% {
+    top: -10%;
+    right: -5%;
+  }
+  70% {
+    top: 5%;
+    right: -18%;
+  }
+  80% {
+    top: 25%;
+    right: -30%;
+  }
+  90% {
+    top: 40%;
+    right: -40%;
+  }
+  100% {
+    top: 60%;
+    right: -48%;
+    filter: brightness(10%);
+  }
+}
+
+@keyframes make-sky-dark {
+  0% {
+    filter: brightness(20%);
+  }
+  50% {
+    filter: brightness(100%);
+  }
+  100% {
+    filter: brightness(20%);
+  }
+}
+
+.sky,
+.clouds {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.sun {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  animation: move-sun-curve 45s linear infinite;
+  z-index: 1;
+  opacity: 0.6;
+  background: url(../../assets/images/sun.png) no-repeat;
+  background-size: contain;
+}
+
+.sky {
+  background: url(../../assets/images/sky.jpg) no-repeat top center;
+  background-size: cover;
+  z-index: 0;
+  animation: make-sky-dark 45s linear infinite;
+}
+
+.clouds {
+  background: transparent url(../../assets/images/clouds.png) repeat top center;
+  z-index: 2;
+  opacity: 0.5;
+  animation: move-clouds-back 200s linear infinite;
+}
