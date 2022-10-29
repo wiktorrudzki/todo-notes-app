@@ -1,0 +1,410 @@
+@import "../../../../global-styles/global";
+
+.content-section {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 10rem;
+  margin-right: 10rem;
+  height: 68vh;
+}
+
+.headers-wrapper {
+  @include flex(column, flex-start, flex-start);
+  margin-top: 4rem;
+  padding-left: 9rem;
+  padding-top: 0;
+}
+
+.headers-author {
+  text-transform: uppercase;
+  font-size: 2.5rem;
+  font-weight: normal;
+  letter-spacing: -0.2rem;
+}
+
+.header-title {
+  font-weight: bold;
+  font-size: 7rem;
+  width: 100%;
+  color: var(--primary);
+}
+
+.apps-wrapper {
+  margin-top: 4rem;
+  width: 80%;
+  position: relative;
+}
+
+.note-wrapper {
+  margin: auto;
+  background-color: var(--primary);
+  padding: 1.5rem;
+  width: 34%;
+  z-index: 2;
+}
+
+.note-title {
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--white);
+  font-size: 3em;
+}
+
+.note-text {
+  padding: 2rem;
+  background-color: var(--white);
+  color: var(--primary);
+  text-align: left;
+  font-size: 2em;
+  margin-top: 1.5rem;
+  letter-spacing: 0.1rem;
+  line-height: 2.6rem;
+  padding-bottom: 8rem;
+}
+
+.todo-wrapper {
+  @include flex(row, space-between);
+  width: 95%;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  border: 8px solid var(--primary);
+  padding: 3.6rem;
+}
+
+.todo-category {
+  padding: 0;
+  font-size: 2.6em;
+  text-transform: uppercase;
+}
+
+.todo-text {
+  margin: 0;
+  font-size: 2em;
+  width: 30%;
+}
+
+.todo-btn {
+  border: 6px solid var(--primary);
+  background-color: var(--light-blue);
+  font-size: 2.4rem;
+  font-weight: bolder;
+  padding: 1rem 1.8rem;
+  text-transform: uppercase;
+}
+
+.todo-date {
+  font-size: 2.4rem;
+  margin: 0;
+}
+
+@media (max-width: 2968px) {
+  .content-section {
+    margin-left: 9rem;
+    margin-right: 9rem;
+    height: 69vh;
+  }
+  .headers-wrapper {
+    margin-top: 3.5rem;
+    padding-left: 8.5rem;
+  }
+  .headers-author {
+    font-size: 2.3rem;
+  }
+  .header-title {
+    font-size: 6.8rem;
+  }
+  .apps-wrapper {
+    margin-top: 3.8rem;
+  }
+  .note-wrapper {
+    width: 36%;
+    padding: 1.4rem;
+  }
+  .note-title {
+    font-size: 2.8em;
+  }
+  .note-text {
+    padding: 1.8rem;
+    font-size: 1.8rem;
+    margin-top: 1.4rem;
+    letter-spacing: 0.08rem;
+    line-height: 2.45rem;
+    padding-bottom: 7.5rem;
+  }
+  .todo-wrapper {
+    padding: 3.4rem;
+  }
+  .todo-category {
+    font-size: 2.4em;
+  }
+  .todo-text {
+    font-size: 1.8em;
+    width: 29%;
+  }
+  .todo-btn {
+    font-size: 2.2rem;
+    padding: 0.9rem 1.65rem;
+  }
+  .todo-date {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 2762px) {
+  .content-section {
+    margin-left: 7rem;
+    margin-right: 7rem;
+    height: 70vh;
+  }
+}
+
+@media (max-width: 2420px) {
+  .note-wrapper {
+    padding: 1.3rem;
+    width: 40%;
+  }
+  .note-title {
+    font-size: 2.4em;
+  }
+  .note-text {
+    padding: 1.5rem;
+    font-size: 1.5rem;
+    margin-top: 1.2rem;
+    letter-spacing: 0.06rem;
+    line-height: 2.3rem;
+    padding-bottom: 7rem;
+  }
+  .todo-wrapper {
+    padding: 3rem;
+  }
+  .headers-wrapper {
+    margin-top: 8rem;
+    padding-left: 8rem;
+  }
+  .headers-author {
+    font-size: 2rem;
+  }
+  .header-title {
+    font-size: 6.5rem;
+  }
+  .todo-category {
+    font-size: 2em;
+  }
+  .todo-text {
+    font-size: 1.6em;
+    width: 30%;
+  }
+  .todo-btn {
+    font-size: 1.9rem;
+    padding: 0.8rem 1.6rem;
+  }
+  .todo-date {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 2178px) {
+  .note-wrapper {
+    padding: 1.2rem;
+    width: 50%;
+  }
+  .todo-wrapper {
+    padding: 2.4rem;
+  }
+  .headers-author {
+    font-size: 1.8rem;
+  }
+  .header-title {
+    font-size: 6.2rem;
+  }
+  .todo-category {
+    font-size: 1.8em;
+  }
+  .todo-text {
+    font-size: 1.3em;
+    width: 30%;
+  }
+  .todo-btn {
+    font-size: 1.6rem;
+    padding: 0.65rem 1.3rem;
+  }
+  .todo-date {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 1960px) {
+  .note-wrapper {
+    width: 60%;
+  }
+  .todo-wrapper {
+    padding: 1.6rem;
+  }
+  .headers-wrapper {
+    padding-left: 5rem;
+  }
+  .headers-author {
+    font-size: 1.7rem;
+  }
+  .header-title {
+    font-size: 5.8rem;
+  }
+  .todo-category {
+    font-size: 1.5em;
+  }
+  .todo-text {
+    font-size: 1em;
+  }
+  .todo-btn {
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+  }
+  .todo-date {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 1624px) {
+  .content-section {
+    @include flex(column-reverse, center, flex-start);
+    gap: 5rem;
+    margin-top: 0;
+  }
+  .headers-wrapper {
+    padding-left: 1rem;
+  }
+  .apps-wrapper {
+    @include flex(column, flex-start, flex-start);
+    margin-top: 0;
+    width: 100%;
+    position: relative;
+  }
+  .note-title {
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--white);
+    font-size: 1.4rem;
+  }
+  .note-text {
+    padding: 1.5rem;
+    font-size: 1.6em;
+    margin-top: 1.2rem;
+    letter-spacing: 0.07rem;
+    line-height: 2.4rem;
+    padding-bottom: 3rem;
+  }
+  .note-wrapper {
+    width: 35%;
+    margin: 0;
+    margin: auto;
+    padding: 1.2rem;
+  }
+  .todo-wrapper {
+    position: initial;
+    padding: 1.6rem;
+  }
+  .headers-wrapper {
+    margin-top: 1rem;
+    padding-left: 0;
+  }
+  .headers-author {
+    margin: 0;
+    font-size: 1.7rem;
+  }
+  .header-title {
+    font-size: 5.8rem;
+  }
+  .todo-category {
+    font-size: 1.8em;
+  }
+  .todo-text {
+    font-size: 1.4em;
+  }
+  .todo-btn {
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+  }
+  .todo-date {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 1420px) {
+  .note-wrapper {
+    width: 40%;
+  }
+}
+
+@media (max-width: 1268px) {
+  .note-wrapper {
+    width: 45%;
+  }
+}
+
+@media (max-width: 1156px) {
+  .note-wrapper {
+    width: 48%;
+  }
+  .note-title {
+    font-size: 1.4rem;
+  }
+  .note-text {
+    padding: 1rem;
+    font-size: 1.4em;
+    margin-top: 1rem;
+    letter-spacing: 0.06rem;
+    line-height: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .note-wrapper {
+    width: 50%;
+  }
+  .header-title {
+    font-size: 4.4rem;
+  }
+  .todo-wrapper {
+    width: 100%;
+  }
+}
+
+@media (max-width: 978px) {
+  .content-section {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+  .apps-wrapper {
+    width: 100%;
+  }
+  .note-wrapper {
+    width: 40%;
+  }
+  .headers-author {
+    letter-spacing: -0.15rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .apps-wrapper {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .headers-author {
+    font-size: 1.3rem;
+  }
+  .header-title {
+    font-size: 3.8rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .content-section {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+}

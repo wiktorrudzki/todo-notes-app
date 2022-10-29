@@ -1,0 +1,204 @@
+@import "../../../../global-styles/global";
+
+.navigation {
+  @include flex(row, space-between);
+  margin-left: 10rem;
+  margin-right: 10rem;
+  height: 14vh;
+}
+
+.header-wrapper {
+  @include flex(row, space-between);
+  width: 50%;
+  list-style-type: none;
+}
+
+.logo-wrapper {
+  @include flex(row, center, center);
+  gap: 1.3rem;
+}
+
+.circle {
+  width: 1.8em;
+  height: 1.8em;
+  background-color: var(--black);
+  border-radius: 50%;
+}
+
+header,
+h3 {
+  padding-top: 1rem;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.login-wrapper {
+  @include flex;
+  gap: 2rem;
+}
+
+.icon {
+  width: 4.2rem;
+}
+
+.nav-title {
+  font-size: 4rem;
+  font-weight: normal;
+}
+
+.menu-title {
+  font-size: 2.4rem;
+  font-weight: normal;
+}
+
+.login-text {
+  font-size: 2.2rem;
+}
+
+@media (max-width: 2968px) {
+  .navigation {
+    margin-left: 9rem;
+    margin-right: 9rem;
+  }
+  .logo-wrapper {
+    gap: 1.2rem;
+  }
+  .circle {
+    width: 1.6em;
+    height: 1.6em;
+  }
+  header,
+  h3 {
+    padding-top: 0.8rem;
+  }
+  .login-wrapper {
+    gap: 2rem;
+  }
+  .icon {
+    width: 4rem;
+  }
+  .nav-title {
+    font-size: 3.8rem;
+  }
+  .menu-title {
+    font-size: 2rem;
+  }
+
+  .login-text {
+    font-size: 2.1rem;
+  }
+}
+
+@media (max-width: 2762px) {
+  .navigation {
+    margin-left: 7rem;
+    margin-right: 7rem;
+  }
+}
+
+@media (max-width: 2178px) {
+  .logo-wrapper {
+    gap: 1rem;
+  }
+  .circle {
+    width: 1.2em;
+    height: 1.2em;
+  }
+  header,
+  h3 {
+    padding-top: 0.6rem;
+  }
+  .login-wrapper {
+    gap: 1.7rem;
+  }
+  .icon {
+    width: 3.2rem;
+  }
+  .nav-title {
+    font-size: 2.8rem;
+  }
+  .menu-title {
+    font-size: 1.6rem;
+  }
+  .login-text {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 1420px) {
+  .header-wrapper {
+    width: 70%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .navigation {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+  .menu-title {
+    display: none;
+  }
+  .header-wrapper {
+    width: 60%;
+  }
+}
+
+@media (max-width: 640px) {
+  .logo-wrapper {
+    gap: 0.7rem;
+  }
+  .circle {
+    width: 0.9em;
+    height: 0.9em;
+  }
+  header,
+  h3 {
+    padding-top: 0.6rem;
+  }
+  .login-wrapper {
+    gap: 0.5rem;
+  }
+  .icon {
+    width: 2.4rem;
+  }
+  .nav-title {
+    font-size: 2.2rem;
+  }
+  .menu-title {
+    font-size: 1.2rem;
+  }
+  .login-text {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .navigation {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+  .logo-wrapper {
+    gap: 0.5rem;
+  }
+  .circle {
+    width: 0.6em;
+    height: 0.6em;
+  }
+  header,
+  h3 {
+    padding-top: 0.4rem;
+  }
+  .icon {
+    width: 2rem;
+  }
+  .nav-title {
+    font-size: 1.8rem;
+  }
+  .menu-title {
+    font-size: 1rem;
+  }
+  .login-text {
+    font-size: 1.3rem;
+  }
+}

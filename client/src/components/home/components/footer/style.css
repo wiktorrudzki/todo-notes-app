@@ -17,4 +17,41 @@ body {
   --gray: #424242;
   --dirtyYellow: #cccc00;
   --white: #fff;
-}/*# sourceMappingURL=global.css.map */
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: var(--primary);
+  height: 18vh;
+  padding-left: 19rem;
+}
+
+.footer-text {
+  font-size: 2.6rem;
+  color: var(--white);
+}
+
+@media (max-width: 1624px) {
+  .footer {
+    padding-left: 8rem;
+  }
+  .footer-text {
+    font-size: 2.2rem;
+  }
+}
+@media (max-width: 1024px) {
+  .footer {
+    padding-left: 3rem;
+  }
+  .footer-text {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 540px) {
+  .footer {
+    padding-left: 2rem;
+  }
+}/*# sourceMappingURL=style.css.map */
