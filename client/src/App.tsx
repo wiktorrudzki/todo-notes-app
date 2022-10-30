@@ -3,7 +3,7 @@ import Notes from "./components/notes";
 import Todo from "./components/todo";
 import "./global-styles/global.css";
 import { Routes, Route } from "react-router-dom";
-import Nav from "./components/home/components/nav";
+import Nav from "./components/nav";
 
 function App() {
   return (

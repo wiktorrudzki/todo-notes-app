@@ -196,3 +196,9 @@
     font-size: 1rem;
   }
 }
+
+@media (max-height: 544px) {
+  .headers-wrapper {
+    gap: 0;
+  }
+}
