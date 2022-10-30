@@ -5,18 +5,20 @@ const Content = () => {
     <section className="content-section">
       <div className="headers-wrapper">
         <h5 className="headers-author">wiktor rudzki</h5>
-        <h1 className="header-title">Make student life easier.</h1>
+        <h1 className="header-title">
+          Make student life
+          <br />
+          easier.
+        </h1>
+        <p className="headers-text">notes & todos...</p>
       </div>
       <div className="apps-wrapper">
         <div className="note-wrapper">
           <h3 className="note-title">note</h3>
           <div className="note-text">
-            Lorem Ipsum is simply
-            dummy
-            text of the printing and
-            typesetting industry.
-            Lorem Ipsum has been the industry's
-            standard dummy text ever since the 1500s
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s
           </div>
         </div>
         <div className="todo-wrapper">

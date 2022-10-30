@@ -17,4 +17,8 @@ body {
   --gray: #424242;
   --dirtyYellow: #cccc00;
   --white: #fff;
+}
+
+.app {
+  position: relative;
 }/*# sourceMappingURL=global.css.map */

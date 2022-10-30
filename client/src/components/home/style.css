@@ -12,6 +12,8 @@ body {
 
 :root {
   --black: #000;
+  --primary: #a57b44;
+  --light-blue: rgba(56, 78, 220, 0.43);
   --gray: #424242;
   --dirtyYellow: #cccc00;
   --white: #fff;

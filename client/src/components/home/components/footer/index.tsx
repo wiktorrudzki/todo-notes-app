@@ -3,7 +3,7 @@ import "./style.css";
 const Footer = () => {
   return (
     <footer className="footer">
-      <p className="footer-text">notes & todos...</p>
+      <p>@2022 Wiktor Rudzki</p>
     </footer>
   );
 };
