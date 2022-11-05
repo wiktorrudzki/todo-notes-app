@@ -1,0 +1,419 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fuzzy+Bubbles:wght@400;700&family=Grape+Nuts&family=Inter:wght@400;600;700&family=Josefin+Sans:wght@300;400;500;600;700&family=Neucha&family=PT+Serif:wght@400;700&family=Poppins:wght@200;300;400;600;700&display=swap");
+* {
+  box-sizing: border-box;
+  font-family: Josefin Sans, Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+:root {
+  --black: #000;
+  --primary: #a57b44;
+  --cobalt-blue: #0047AB;
+  --light-blue: rgba(56, 78, 220, 0.431);
+  --light-orange: #fe994a;
+  --forect-green: #228B22;
+  --light-green: #00c04b;
+  --gray: #424242;
+  --dirtyYellow: #cccc00;
+  --byzantium: #702963;
+  --red: #e50000;
+  --white: #fff;
+}
+
+.app {
+  position: relative;
+  min-height: 100vh;
+}
+
+.add-note-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10%;
+  height: 35vh;
+  margin-top: 2rem;
+}
+
+.note-wrapper-add {
+  display: grid;
+  grid-template-rows: 1fr 4fr;
+  background-color: var(--primary);
+  width: 16%;
+  height: 100%;
+  min-width: 14rem;
+  min-height: 14rem;
+}
+
+.note-title-add-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.note-title-add {
+  text-align: center;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: none;
+  width: 90%;
+  height: 90%;
+  margin: 0 auto;
+  color: var(--white);
+  font-size: 1em;
+  padding: 0;
+}
+
+.note-title-add:active,
+.note-title-add:focus {
+  outline: none;
+}
+
+.note-text-add {
+  background-color: var(--white);
+  width: 90%;
+  height: 90%;
+  margin: 0 auto;
+  border: none;
+  padding: 0.5rem;
+  color: var(--primary);
+  text-align: left;
+  font-size: 0.9em;
+  letter-spacing: 0.05rem;
+  line-height: 1.3rem;
+  resize: none;
+}
+
+.note-text-add:focus,
+.note-text-add:active,
+.note-text:focus,
+.note-text:active,
+.note-title:focus,
+.note-title:active {
+  outline: none;
+}
+
+.add-note-btn {
+  min-width: 7rem;
+  min-height: 3.6rem;
+  text-transform: uppercase;
+  border: 3px solid var(--white);
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 0.8rem 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.5s, border 0.5s, color 0.5s, transform 0.12s;
+}
+
+.add-note-btn:hover {
+  background-color: transparent;
+  color: var(--black);
+  border: 3px solid var(--primary);
+}
+
+.notes-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  border-top: 3px solid var(--black);
+  margin-left: 5rem;
+  margin-right: 5rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  background: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05));
+}
+
+.note-wrapper {
+  display: grid;
+  grid-template-rows: 1fr 4fr;
+  padding: 0.2rem;
+  width: 13rem;
+  min-height: 14rem;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin: 0;
+  padding-bottom: 0.75rem;
+  cursor: pointer;
+  transition: 0.5s all ease-out;
+}
+
+.note-title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 90%;
+  height: 90%;
+}
+
+.note-title {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1rem;
+  padding: 0.5rem;
+  margin: 0;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  transition: 0.5s all ease-out;
+  color: var(--white);
+}
+
+.note-text {
+  padding: 0.5rem;
+  max-width: 90%;
+  width: 90%;
+  margin: 0 auto;
+  min-height: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  text-align: left;
+  font-size: 0.9em;
+  letter-spacing: 0.05rem;
+  line-height: 1.3rem;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  transition: 0.5s all ease-out;
+}
+
+.remove-notes {
+  padding: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.bin-icon {
+  width: 3rem;
+  height: 3rem;
+}
+
+@media (max-width: 1024px) {
+  .add-note-container {
+    height: 26vh;
+    margin-top: 2rem;
+  }
+  .note-wrapper-add {
+    min-width: 12rem;
+    min-height: 12rem;
+  }
+  .note-title-add {
+    font-size: 1rem;
+  }
+  .note-text-add {
+    padding: 0.45rem;
+    font-size: 0.85em;
+  }
+  .add-note-btn {
+    min-width: 5rem;
+    min-height: 3rem;
+    padding: 0.75rem 0.9rem;
+    font-size: 1.1rem;
+  }
+  .notes-wrapper {
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    padding-right: 0.9rem;
+    padding-left: 0.9rem;
+  }
+  .note-wrapper {
+    padding: 0.2rem;
+    width: 11rem;
+    min-height: 12rem;
+    padding-bottom: 0.7rem;
+  }
+  .note-text {
+    padding: 0.45rem;
+    font-size: 0.85em;
+  }
+  .remove-notes {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .bin-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+@media (max-width: 768px) {
+  .add-note-container {
+    height: 24vh;
+    margin-top: 1.5rem;
+  }
+  .note-wrapper-add {
+    min-width: 11rem;
+    min-height: 11rem;
+  }
+  .note-title-add {
+    font-size: 0.9rem;
+  }
+  .note-text-add {
+    padding: 0.4rem;
+    font-size: 0.8em;
+  }
+  .add-note-btn {
+    min-width: 4.5rem;
+    min-height: 2.8rem;
+    padding: 0.7rem 0.8rem;
+    font-size: 1rem;
+  }
+  .notes-wrapper {
+    gap: 0.8rem;
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    margin-left: 1.75rem;
+    margin-right: 1.75rem;
+    padding-right: 0.7rem;
+    padding-left: 0.7rem;
+  }
+  .note-wrapper {
+    padding: 0.2rem;
+    width: 11rem;
+    min-height: 11rem;
+    padding-bottom: 0.6rem;
+  }
+  .note-title {
+    font-size: 0.9rem;
+  }
+  .note-text {
+    padding: 0.4rem;
+    font-size: 0.8em;
+  }
+  .remove-notes {
+    padding: 2.5rem;
+  }
+  .bin-icon {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+@media (max-width: 544px) {
+  .add-note-container {
+    height: 18vh;
+    margin-top: 1.5rem;
+  }
+  .note-wrapper-add {
+    min-width: 9rem;
+    min-height: 9rem;
+  }
+  .note-title-add {
+    font-size: 0.8rem;
+  }
+  .note-text-add {
+    padding: 0.3rem;
+    font-size: 0.7em;
+  }
+  .add-note-btn {
+    min-width: 4rem;
+    min-height: 2.5rem;
+    border-width: 2px;
+    padding: 0.5rem 0.6rem;
+    font-size: 0.8rem;
+  }
+  .add-note-btn:hover {
+    border-width: 2px;
+  }
+  .notes-wrapper {
+    gap: 0.8rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+  .note-wrapper {
+    width: 9rem;
+    min-height: 9rem;
+    padding-bottom: 0.5rem;
+  }
+  .note-title {
+    font-size: 0.8rem;
+  }
+  .note-text {
+    padding: 0.3rem;
+    font-size: 0.7em;
+  }
+  .remove-notes {
+    padding: 2.5rem;
+  }
+  .bin-icon {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+@media (max-width: 425px) {
+  .add-note-container {
+    margin-top: 0.5rem;
+  }
+  .note-wrapper-add {
+    min-width: 7rem;
+    min-height: 6rem;
+  }
+  .note-title-add {
+    font-size: 0.7rem;
+  }
+  .note-text-add {
+    padding: 0.25rem;
+    font-size: 0.6em;
+  }
+  .add-note-btn {
+    min-width: 3rem;
+    min-height: 2rem;
+    font-size: 0.65rem;
+  }
+  .notes-wrapper {
+    gap: 0.5rem;
+    padding-right: 0.3rem;
+    padding-left: 0.3rem;
+  }
+  .note-wrapper {
+    width: 5.5rem;
+    min-height: 6rem;
+    padding-bottom: 0.3rem;
+  }
+  .note-title {
+    padding: 0.2rem;
+    font-size: 0.5rem;
+  }
+  .note-text {
+    padding: 0.1rem;
+    font-size: 0.55em;
+  }
+  .remove-notes {
+    padding: 2.5rem;
+  }
+  .bin-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}/*# sourceMappingURL=style.css.map */

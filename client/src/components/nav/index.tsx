@@ -1,41 +1,35 @@
-import { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useState, useReducer, useContext } from "react";
 import userIcon from "../../assets/images/icons/user.svg";
 import barsIcon from "../../assets/images/icons/bars.svg";
 import logoIcon from "../../assets/images/icons/logo.svg";
-import xIcon from "../../assets/images/icons/x.svg";
+import logoutIcon from "../../assets/images/icons/logout.svg";
 import Axios from "axios";
+import { UserContext } from "../../contexts/UserProvider";
 
 import "./style.css";
 import { Link } from "react-router-dom";
-
-type Actions =
-  | { type: "password"; payload: string }
-  | { type: "username"; payload: string };
-
-type LoginStatus = {
-  username: string;
-  password: string;
-};
+import { LoginScreenContext } from "../../contexts/LoginScreenProvider";
+import { RegisterScreenContext } from "../../contexts/RegisterScreenProvider";
+import LoginAndRegisterScreen from "./components/LoginAndRegisterScreen";
+import { reducer } from "./components/loginStatusReducer";
+import LogoutScreen from "./components/LogoutScreen";
 
 const Nav = () => {
-  const reducer = (state: LoginStatus, action: Actions) => {
-    switch (action.type) {
-      case "password": {
-        return { ...state, password: action.payload };
-      }
-      case "username": {
-        return { ...state, username: action.payload };
-      }
-      default:
-        return state;
-    }
-  };
-
   const [showMenu, setShowMenu] = useState(false);
-  const [showLoginScreen, setShowLoginScreen] = useState(false);
+  const [logoutScreen, setLogoutScreen] = useState(false);
+  const { user, setUser } = useContext(UserContext);
+  const { showLoginScreen, setShowLoginScreen } =
+    useContext(LoginScreenContext);
+  const { showRegisterScreen, setShowRegisterScreen } = useContext(
+    RegisterScreenContext
+  );
+
   const [loginStatus, dispatch] = useReducer(reducer, {
     username: "",
     password: "",
+    confirmPassword: "",
+    error: false,
+    errorMessage: null,
   });
 
   const toggleMenu = () => {
@@ -47,6 +41,17 @@ const Nav = () => {
   const [windowSize, setWindowSize] = useState(getWindowSize());
 
   useEffect(() => {
+    Axios.get("http://localhost:3001/rememberUser", {
+      headers: {
+        authorization: localStorage.getItem("token"),
+      },
+    }).then((res) => {
+      console.log(res.data.message);
+      if (res.data.auth) {
+        setUser(res.data.username);
+      }
+    });
+
     function handleWindowResize() {
       if (getWindowSize().innerWidth > 786) setShowMenu(true);
       setWindowSize(getWindowSize());
@@ -67,12 +72,87 @@ const Nav = () => {
     return { innerWidth, innerHeight };
   }
 
-  const submitLogin = () => {
-    console.log(loginStatus);
+  const submitLogin = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    if (
+      loginStatus.error ||
+      loginStatus.password === "" ||
+      loginStatus.username === ""
+    ) {
+      dispatch({ type: "error", payload: true, errorMessage: "error in form" });
+      return;
+    }
+
     Axios.post("http://localhost:3001/login", {
       username: loginStatus.username,
       password: loginStatus.password,
-    }).then((res) => console.log(res.data.message));
+    }).then((res) => {
+      console.log(res.data.message);
+      if (res.data.auth) {
+        localStorage.setItem("token", "Bearer " + res.data.token);
+        localStorage.setItem("user", res.data.id);
+        setUser(res.data.username);
+        clearLoginStatus();
+        setShowLoginScreen(false);
+      } else {
+        if (res.data.message === "wrong username/password combination") {
+          dispatch({
+            type: "error",
+            payload: true,
+            errorMessage: "wrong username/password combination",
+          });
+        }
+      }
+    });
+  };
+
+  const submitRegister = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    if (
+      loginStatus.error ||
+      loginStatus.password === "" ||
+      loginStatus.confirmPassword === "" ||
+      loginStatus.username === ""
+    ) {
+      dispatch({ type: "error", payload: true, errorMessage: "error in form" });
+      return;
+    }
+
+    Axios.post("http://localhost:3001/register", {
+      username: loginStatus.username,
+      password: loginStatus.password,
+      confirmPassword: loginStatus.confirmPassword,
+    }).then((res) => {
+      console.log(res.data.message);
+      if (res.data.created) {
+        clearLoginStatus();
+        setShowRegisterScreen(false);
+      } else {
+        if (res.data.message === "username already taken") {
+          dispatch({
+            type: "error",
+            payload: true,
+            errorMessage: "username already taken",
+          });
+        }
+      }
+    });
+  };
+
+  const clearLoginStatus = () => {
+    dispatch({ type: "loginPassword", payload: "" });
+    dispatch({ type: "confirmPassword", payload: "" });
+    dispatch({ type: "username", payload: "" });
+    dispatch({ type: "error", payload: false, errorMessage: null });
+  };
+
+  const logout = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+
+    localStorage.clear();
+    setUser(null);
   };
 
   return (
@@ -86,7 +166,6 @@ const Nav = () => {
           >
             <Link className="link" to="/">
               <img className="icon" src={logoIcon} alt="logo" />
-              <div className="circle"></div>
               <header className="nav-title">app</header>
             </Link>
           </div>
@@ -109,60 +188,39 @@ const Nav = () => {
           </h3>
         </section>
         <section className="login-wrapper">
-          <p className="login-text">gość</p>
+          <p className="login-text">{user ? user : "gość"}</p>
           <img
             style={showLoginScreen ? {} : { cursor: "pointer" }}
-            onClick={() => setShowLoginScreen((prev) => !prev)}
+            onClick={() => setShowLoginScreen((prev: boolean) => !prev)}
             className="icon"
             src={userIcon}
             alt="login"
           />
+          <img
+            onClick={() => setLogoutScreen(true)}
+            src={logoutIcon}
+            alt="logout"
+            className="icon"
+            style={showLoginScreen ? {} : { cursor: "pointer" }}
+          />
         </section>
       </nav>
-      <section
-        style={showLoginScreen ? {} : { display: "none" }}
-        className="login-screen"
-      >
-        <div className="login-screen-wrapper">
-          <label className="login-label">Nazwa użytkownika</label>
-          <input
-            onChange={(e) =>
-              dispatch({ type: "username", payload: e.target.value })
-            }
-            className="login-input"
-            required
-            name="username"
-            type="text"
-            placeholder="wpisz nazwę użytkownika"
-          />
-          <label className="login-label">Hasło</label>
-          <input
-            onChange={(e) =>
-              dispatch({ type: "password", payload: e.target.value })
-            }
-            className="login-input"
-            required
-            name="password"
-            type="password"
-            placeholder="wpisz swoje hasło"
-          />
-          <button onClick={submitLogin} className="login-submit-btn">
-            Zaloguj się
-          </button>
-          <p className="register-btn">
-            Nie posiadasz konta?{" "}
-            <span style={{ color: "var(--primary)", cursor: "pointer" }}>
-              Zarejestruj się
-            </span>
-          </p>
-          <img
-            onClick={() => setShowLoginScreen((prev) => !prev)}
-            src={xIcon}
-            className="cancel-login-btn"
-            alt="cancel login"
-          />
-        </div>
-      </section>
+      <LogoutScreen
+        logoutScreen={logoutScreen}
+        setLogoutScreen={setLogoutScreen}
+        logout={logout}
+      />
+      <LoginAndRegisterScreen
+        showLoginScreen={showLoginScreen}
+        dispatch={dispatch}
+        loginStatus={loginStatus}
+        submitLogin={submitLogin}
+        setShowLoginScreen={setShowLoginScreen}
+        setShowRegisterScreen={setShowRegisterScreen}
+        clearLoginStatus={clearLoginStatus}
+        showRegisterScreen={showRegisterScreen}
+        submitRegister={submitRegister}
+      />
     </>
   );
 };

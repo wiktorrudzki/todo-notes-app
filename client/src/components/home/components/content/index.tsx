@@ -13,21 +13,21 @@ const Content = () => {
         <p className="headers-text">notes & todos...</p>
       </div>
       <div className="apps-wrapper">
-        <div className="note-wrapper">
-          <h3 className="note-title">note</h3>
-          <div className="note-text">
+        <div className="note-wrapper-content">
+          <h3 className="note-title-content">note</h3>
+          <div className="note-text-content">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s
           </div>
         </div>
-        <div className="todo-wrapper">
-          <h3 className="todo-category">frontend</h3>
-          <p className="todo-text">
+        <div className="todo-wrapper-content">
+          <h3 className="todo-category-content">frontend</h3>
+          <p className="todo-text-content">
             Lorem Ipsum is simply dummy text of the printing
           </p>
-          <button className="todo-btn">pending</button>
-          <p className="todo-date">30.10.2022</p>
+          <button className="todo-btn-content">pending</button>
+          <p className="todo-date-content">30.10.2022</p>
         </div>
       </div>
     </section>

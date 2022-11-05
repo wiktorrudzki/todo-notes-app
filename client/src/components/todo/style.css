@@ -1,0 +1,381 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fuzzy+Bubbles:wght@400;700&family=Grape+Nuts&family=Inter:wght@400;600;700&family=Josefin+Sans:wght@300;400;500;600;700&family=Neucha&family=PT+Serif:wght@400;700&family=Poppins:wght@200;300;400;600;700&display=swap");
+* {
+  box-sizing: border-box;
+  font-family: Josefin Sans, Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+:root {
+  --black: #000;
+  --primary: #a57b44;
+  --light-blue: rgba(56, 78, 220, 0.43);
+  --light-orange: #fe994a;
+  --light-green: #00c04b;
+  --gray: #424242;
+  --dirtyYellow: #cccc00;
+  --red: red;
+  --white: #fff;
+}
+
+.app {
+  position: relative;
+  min-height: 100vh;
+}
+
+.todo-add {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4rem;
+  margin: 2rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
+.todo-add-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
+  border: 8px solid var(--primary);
+  padding: 0.8rem;
+}
+
+.todo-add-container-cell {
+  margin: auto;
+  font-weight: normal;
+}
+
+.todo-add-container-cell-title {
+  text-transform: capitalize;
+  font-size: 1.2rem;
+}
+
+.todo-add-category {
+  padding: 0;
+  font-size: 1em;
+  width: 60%;
+}
+
+.todo-add-text {
+  font-size: 1em;
+  width: 60%;
+  height: 100%;
+}
+
+.todo-add-progress {
+  border: 6px solid var(--primary);
+  background-color: var(--light-orange);
+  font-size: 1.2rem;
+  padding: 0.6rem 1.6rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.todo-add-date {
+  font-size: 1.2rem;
+}
+
+.add-todo-btn {
+  width: 12%;
+  height: 25%;
+  border: 3px solid var(--white);
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 0.9rem 1.2rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.5s, border 0.5s, color 0.5s, transform 0.12s;
+}
+
+.add-todo-btn:hover {
+  background-color: transparent;
+  color: var(--black);
+  border: 3px solid var(--primary);
+}
+
+.todos-title {
+  margin-top: 5rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  text-transform: uppercase;
+}
+
+.todo-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: 8px solid var(--primary);
+  padding: 1.8rem;
+  margin: 0 auto;
+  width: 90%;
+  transition: all 0.08s;
+}
+
+.todo-wrapper:active,
+.todo-wrapper:focus {
+  transform: scale(0.98);
+}
+
+.todo-category {
+  padding: 0;
+  font-size: 1.3em;
+  text-transform: uppercase;
+  width: 25%;
+  overflow-wrap: break-word;
+}
+
+.todo-text {
+  margin: 0;
+  font-size: 1em;
+  width: 30%;
+  overflow-wrap: break-word;
+}
+
+.todo-btn {
+  border: 6px solid var(--primary);
+  background-color: var(--light-blue);
+  font-size: 1.2rem;
+  font-weight: bolder;
+  padding: 0.5rem 0.9rem;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.todo-date {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.wrong-form-fulfilled-screen-wrapper {
+  top: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+}
+
+.wrong-form-fulfilled-screen {
+  background-color: var(--white);
+  width: 50%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: var(--red);
+  position: relative;
+  padding: 1.5rem;
+}
+
+.wrong-form-fulfilled-screen-message {
+  line-height: 1.7rem;
+  letter-spacing: 0.03rem;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+@media (max-width: 1234px) {
+  .todo-add-wrapper {
+    padding: 1.2rem;
+  }
+}
+@media (max-width: 1024px) {
+  .todo-add {
+    gap: 2rem;
+    margin-left: 3.5rem;
+    margin-right: 3.5rem;
+  }
+  .todo-add-container {
+    padding: 0.5rem;
+  }
+  .todo-add-container-cell-title {
+    font-size: 1rem;
+  }
+  .todo-add-category {
+    font-size: 0.8em;
+  }
+  .todo-add-text {
+    font-size: 0.8em;
+  }
+  .todo-add-progress {
+    border: 4px solid var(--primary);
+    font-size: 1rem;
+    padding: 0.4rem 1.4rem;
+  }
+  .todo-add-date {
+    width: 75%;
+    font-size: 1rem;
+  }
+  .add-todo-btn {
+    width: 25%;
+    height: 25%;
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+  }
+  .todos-title {
+    margin-top: 3rem;
+    margin-left: 3.5rem;
+    margin-right: 3.5rem;
+  }
+  .todo-btn {
+    border: 4px solid var(--primary);
+  }
+  .wrong-form-fulfilled-screen {
+    height: 45%;
+    width: 60%;
+    padding: 1.1rem;
+  }
+}
+@media (max-width: 768px) {
+  .todo-add {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+  .todo-add-container {
+    padding: 0.5rem;
+    grid-template-columns: 1.2fr 1.2fr 1fr 1fr;
+    grid-template-rows: 1fr 1.4fr;
+    border: 6px solid var(--primary);
+  }
+  .todo-add-container-cell-title {
+    font-size: 1rem;
+  }
+  .todo-add-category {
+    font-size: 0.8em;
+  }
+  .todo-add-text {
+    font-size: 0.8em;
+  }
+  .todo-add-progress {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.8rem;
+    border: 2.5px solid var(--primary);
+  }
+  .todo-add-date {
+    width: 80%;
+    font-size: 0.75rem;
+  }
+  .todos-title {
+    margin-top: 4rem;
+    margin-left: 2.5rem;
+  }
+  .todo-wrapper {
+    border: 6px solid var(--primary);
+    padding: 1.2rem;
+  }
+  .todo-category {
+    font-size: 1.1em;
+  }
+  .todo-text {
+    font-size: 0.9em;
+  }
+  .todo-btn {
+    border: 2.5px solid var(--primary);
+    background-color: var(--light-blue);
+    font-size: 0.95rem;
+    padding: 0.4rem 0.8rem;
+  }
+  .todo-date {
+    font-size: 0.8rem;
+  }
+  .wrong-form-fulfilled-screen {
+    background-color: var(--white);
+    width: 80%;
+    height: 40%;
+    padding: 1rem;
+  }
+  .wrong-form-fulfilled-screen-message {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 544px) {
+  .todo-add {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+  .todo-add-container {
+    border: 4px solid var(--primary);
+    padding: 0.25rem;
+  }
+  .todo-add-container-cell-title {
+    font-size: 0.8rem;
+  }
+  .todo-add-category {
+    font-size: 0.65em;
+  }
+  .todo-add-text {
+    font-size: 0.65em;
+  }
+  .todo-add-progress {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.6rem;
+  }
+  .todo-add-date {
+    width: 80%;
+    font-size: 0.5rem;
+  }
+  .add-todo-btn {
+    width: 25%;
+    padding: 0.65rem 0.65rem;
+    font-size: 0.8rem;
+  }
+  .todos-title {
+    margin-top: 3rem;
+    margin-left: 1.5rem;
+    font-size: 1.2rem;
+  }
+  .todo-wrapper {
+    border: 4px solid var(--primary);
+    padding: 1rem;
+  }
+  .todo-category {
+    font-size: 0.9em;
+  }
+  .todo-text {
+    font-size: 0.75em;
+  }
+  .todo-btn {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.45rem;
+  }
+  .todo-date {
+    font-size: 0.65rem;
+  }
+  .wrong-form-fulfilled-screen {
+    background-color: var(--white);
+    width: 85%;
+    height: 35%;
+    padding: 0.8rem;
+  }
+  .wrong-form-fulfilled-screen-message {
+    font-size: 1rem;
+  }
+}/*# sourceMappingURL=style.css.map */

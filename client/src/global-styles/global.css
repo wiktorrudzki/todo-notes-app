@@ -2,23 +2,34 @@
 * {
   box-sizing: border-box;
   font-family: Josefin Sans, Arial, Helvetica, sans-serif;
-  overflow: hidden;
 }
 
 body {
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 :root {
   --black: #000;
   --primary: #a57b44;
-  --light-blue: rgba(56, 78, 220, 0.43);
+  --cobalt-blue: #0047AB;
+  --light-blue: rgba(56, 78, 220, 0.431);
+  --light-orange: #fe994a;
+  --forect-green: #228B22;
+  --light-green: #00c04b;
   --gray: #424242;
   --dirtyYellow: #cccc00;
+  --byzantium: #702963;
+  --red: #e50000;
   --white: #fff;
 }
 
 .app {
   position: relative;
+  min-height: 100vh;
 }/*# sourceMappingURL=global.css.map */
