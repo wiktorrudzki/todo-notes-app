@@ -1,15 +1,22 @@
+import { useState, useContext } from "react";
 import Axios from "axios";
 import { allColors } from "./noteColors";
+import { RemoveNotesContext } from "../../../contexts/RemoveNotesProvider";
 
 const Note = ({ note, getNotes, setNoteToRemove }: any) => {
-  const handleColorChange = () => {
+  const { setMarkedNotes } = useContext(RemoveNotesContext);
+
+  const handleColorChange = (e: any) => {
+    if (e.target.type && e.target.type === "checkbox") {
+      return;
+    }
     const index =
       note.note_colors_index === allColors.length - 1
         ? 0
         : ++note.note_colors_index;
 
-    Axios.post(
-      "http://localhost:3001/changeNoteColor",
+    Axios.patch(
+      `${process.env.REACT_APP_API}/notes/changeColor`,
       {
         index: index,
         color: allColors[index].color,
@@ -34,6 +41,23 @@ const Note = ({ note, getNotes, setNoteToRemove }: any) => {
     setNoteToRemove(note.id);
   };
 
+  //eslint-disable-next-line
+  const [isMarked, setIsMarked] = useState(false);
+
+  const toggleMarked = () => {
+    setIsMarked((prev: any) => {
+      if (prev) {
+        setMarkedNotes((prevNotes: any) =>
+          prevNotes.filter((prevNote: any) => prevNote !== note.id)
+        );
+        return false;
+      } else {
+        setMarkedNotes((prevNotes: any) => [...prevNotes, note.id]);
+        return true;
+      }
+    });
+  };
+
   return (
     <div
       draggable="true"
@@ -48,6 +72,11 @@ const Note = ({ note, getNotes, setNoteToRemove }: any) => {
       <div style={{ background: note.note_background }} className="note-text">
         {note.note_text}
       </div>
+      <input
+        onChange={toggleMarked}
+        className="note-checkbox"
+        type="checkbox"
+      />
     </div>
   );
 };

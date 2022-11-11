@@ -1,6 +1,11 @@
-import xIcon from "../../../assets/images/icons/x.svg";
+import xIcon from "../assets/images/icons/x.svg";
 
-function WrongFormScreen({ showWrongFormScreen, user, setShowWrongFormScreen }: any) {
+function WrongFormScreen({
+  showWrongFormScreen,
+  user,
+  setShowWrongFormScreen,
+  message,
+}: any) {
   return (
     <div
       style={showWrongFormScreen ? {} : { display: "none" }}
@@ -10,7 +15,7 @@ function WrongFormScreen({ showWrongFormScreen, user, setShowWrongFormScreen }: 
         <p className="wrong-form-fulfilled-screen-message">
           {!user
             ? "YOU DONT HAVE ACCESS TO THIS SINCE YOU ARE NOT LOGGED IN"
-            : "FORM IS NOT FULFILLED CORRECTLY"}
+            : message}
         </p>
         <img
           onClick={() => setShowWrongFormScreen(false)}

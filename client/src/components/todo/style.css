@@ -17,12 +17,15 @@ body {
 :root {
   --black: #000;
   --primary: #a57b44;
-  --light-blue: rgba(56, 78, 220, 0.43);
+  --cobalt-blue: #0047AB;
+  --light-blue: rgba(56, 78, 220, 0.431);
   --light-orange: #fe994a;
+  --forect-green: #228B22;
   --light-green: #00c04b;
   --gray: #424242;
   --dirtyYellow: #cccc00;
-  --red: red;
+  --byzantium: #702963;
+  --red: #e50000;
   --white: #fff;
 }
 
@@ -76,10 +79,15 @@ body {
 .todo-add-progress {
   border: 6px solid var(--primary);
   background-color: var(--light-orange);
+  color: var(--black);
   font-size: 1.2rem;
   padding: 0.6rem 1.6rem;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+.todo-add-progress:visited {
+  color: var(--black);
 }
 
 .todo-add-date {
@@ -111,6 +119,11 @@ body {
   text-transform: uppercase;
 }
 
+.todo-draggable {
+  width: 90%;
+  margin: auto;
+}
+
 .todo-wrapper {
   display: flex;
   flex-direction: row;
@@ -120,7 +133,6 @@ body {
   border: 8px solid var(--primary);
   padding: 1.8rem;
   margin: 0 auto;
-  width: 90%;
   transition: all 0.08s;
 }
 
@@ -147,11 +159,16 @@ body {
 .todo-btn {
   border: 6px solid var(--primary);
   background-color: var(--light-blue);
+  color: var(--black);
   font-size: 1.2rem;
   font-weight: bolder;
   padding: 0.5rem 0.9rem;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+.todo-btn:visited {
+  color: var(--black);
 }
 
 .todo-date {
@@ -357,17 +374,17 @@ body {
     padding: 1rem;
   }
   .todo-category {
-    font-size: 0.9em;
+    font-size: 0.6em;
   }
   .todo-text {
-    font-size: 0.75em;
+    font-size: 0.65em;
   }
   .todo-btn {
-    font-size: 0.75rem;
-    padding: 0.3rem 0.45rem;
+    font-size: 0.6rem;
+    padding: 0.3rem 0.4rem;
   }
   .todo-date {
-    font-size: 0.65rem;
+    font-size: 0.55rem;
   }
   .wrong-form-fulfilled-screen {
     background-color: var(--white);

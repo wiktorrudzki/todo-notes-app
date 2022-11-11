@@ -8,8 +8,8 @@ function Todo({ todo }: any) {
   const changeProgress = (id: number, value: string, position: number) => {
     if (value === "TODO") {
       const newValue = "PENDING";
-      Axios.post(
-        "http://localhost:3001/changeProgress",
+      Axios.patch(
+        `${process.env.REACT_APP_API}/todos/changeProgress`,
         {
           id: id,
           value: newValue,
@@ -21,13 +21,19 @@ function Todo({ todo }: any) {
         }
       ).then((res) => {
         if (res.data.changed) {
-          Axios.get("http://localhost:3001/todos", {
+          Axios.get(`${process.env.REACT_APP_API}/todos/`, {
             headers: {
               authorization: localStorage.getItem("token"),
             },
           }).then((res) => {
+            let data = res.data.data;
+
+            data = data.map((todo: any) => {
+              let date = new Date(todo.todo_date);
+              return { ...todo, todo_date: date.toString().slice(4, 15) };
+            });
             setAllTodos(
-              res.data.data.sort((a: any, b: any) => {
+              data.sort((a: any, b: any) => {
                 return a.todo_position - b.todo_position;
               })
             );
@@ -36,8 +42,8 @@ function Todo({ todo }: any) {
       });
     } else if (value === "PENDING") {
       const newValue = "DONE";
-      Axios.post(
-        "http://localhost:3001/changeProgress",
+      Axios.patch(
+        `${process.env.REACT_APP_API}/todos/changeProgress`,
         {
           id: id,
           value: newValue,
@@ -49,13 +55,19 @@ function Todo({ todo }: any) {
         }
       ).then((res) => {
         if (res.data.changed) {
-          Axios.get("http://localhost:3001/todos", {
+          Axios.get(`${process.env.REACT_APP_API}/todos/`, {
             headers: {
               authorization: localStorage.getItem("token"),
             },
           }).then((res) => {
+            let data = res.data.data;
+
+            data = data.map((todo: any) => {
+              let date = new Date(todo.todo_date);
+              return { ...todo, todo_date: date.toString().slice(4, 15) };
+            });
             setAllTodos(
-              res.data.data.sort((a: any, b: any) => {
+              data.sort((a: any, b: any) => {
                 return a.todo_position - b.todo_position;
               })
             );
@@ -63,7 +75,7 @@ function Todo({ todo }: any) {
         }
       });
     } else {
-      Axios.delete("http://localhost:3001/deleteTodo", {
+      Axios.delete(`${process.env.REACT_APP_API}/todos/`, {
         headers: {
           authorization: localStorage.getItem("token"),
           id: id,
@@ -71,18 +83,25 @@ function Todo({ todo }: any) {
         },
       }).then((res) => {
         if (res.data.deleted) {
-          Axios.get("http://localhost:3001/todos", {
+          Axios.get(`${process.env.REACT_APP_API}/todos/`, {
             headers: {
               authorization: localStorage.getItem("token"),
             },
           }).then((res) => {
             if (allTodos.length === 1) setAllTodos([]);
-            else
+            else {
+              let data = res.data.data;
+
+              data = data.map((todo: any) => {
+                let date = new Date(todo.todo_date);
+                return { ...todo, todo_date: date.toString().slice(4, 15) };
+              });
               setAllTodos(
-                res.data.data.sort((a: any, b: any) => {
+                data.sort((a: any, b: any) => {
                   return a.todo_position - b.todo_position;
                 })
               );
+            }
           });
         }
       });
@@ -108,7 +127,7 @@ function Todo({ todo }: any) {
       >
         {todo.todo_progress}
       </button>
-      <p className="todo-date">{todo.todo_date.slice(0, 10)}</p>
+      <p className="todo-date">{todo.todo_date}</p>
     </div>
   );
 }

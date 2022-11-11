@@ -9,6 +9,7 @@ import LoginScreenProvider from "./contexts/LoginScreenProvider";
 import RegisterScreenProvider from "./contexts/RegisterScreenProvider";
 import TodosProvider from "./contexts/TodosProvider";
 import NotesProvider from "./contexts/NotesProvider";
+import RemoveNotesProvider from "./contexts/RemoveNotesProvider";
 
 function App() {
   return (
@@ -18,12 +19,15 @@ function App() {
           <RegisterScreenProvider>
             <TodosProvider>
               <NotesProvider>
-                <Nav />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/todo" element={<Todo />} />
-                  <Route path="/notes" element={<Notes />} />
-                </Routes>
+                <RemoveNotesProvider>
+                  <Nav />
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/todo" element={<Todo />} />
+                    <Route path="/notes" element={<Notes />} />
+                    <Route path="*" element={<Home />} />
+                  </Routes>
+                </RemoveNotesProvider>
               </NotesProvider>
             </TodosProvider>
           </RegisterScreenProvider>

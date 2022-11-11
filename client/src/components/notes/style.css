@@ -17,10 +17,10 @@ body {
 :root {
   --black: #000;
   --primary: #a57b44;
-  --cobalt-blue: #0047AB;
+  --cobalt-blue: #0047ab;
   --light-blue: rgba(56, 78, 220, 0.431);
   --light-orange: #fe994a;
-  --forect-green: #228B22;
+  --forect-green: #228b22;
   --light-green: #00c04b;
   --gray: #424242;
   --dirtyYellow: #cccc00;
@@ -153,6 +153,16 @@ body {
   padding-bottom: 0.75rem;
   cursor: pointer;
   transition: 0.5s all ease-out;
+  position: relative;
+}
+
+.note-checkbox {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 10%;
+  height: 10%;
+  outline: none;
 }
 
 .note-title-container {
@@ -204,6 +214,7 @@ body {
 }
 
 .bin-icon {
+  cursor: pointer;
   width: 3rem;
   height: 3rem;
 }

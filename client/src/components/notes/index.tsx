@@ -4,11 +4,12 @@ import { UserContext } from "../../contexts/UserProvider";
 import { LoginScreenContext } from "../../contexts/LoginScreenProvider";
 import { NotesContext } from "../../contexts/NotesProvider";
 import { RegisterScreenContext } from "../../contexts/RegisterScreenProvider";
-import xIcon from "../../assets/images/icons/x.svg";
 import binIcon from "../../assets/images/icons/bin.svg";
 
 import "./style.css";
 import Note from "./components/Note";
+import { RemoveNotesContext } from "../../contexts/RemoveNotesProvider";
+import WrongFormScreen from "../WrongFormScreen";
 
 type NoteStatus = {
   title: string;
@@ -20,6 +21,7 @@ type Actions =
   | { type: "text"; payload: string };
 
 const Notes = () => {
+  const [errorMessage, setErrorMessage] = useState(null);
   const { user, setUser } = useContext(UserContext);
   const { allNotes, setAllNotes } = useContext(NotesContext);
 
@@ -28,7 +30,8 @@ const Notes = () => {
   const [showWrongFormScreen, setShowWrongFormScreen] = useState(false);
   const [noteToRemove, setNoteToRemove] = useState(null);
 
-  const { showLoginScreen, setShowLoginScreen } = useContext(LoginScreenContext);
+  const { showLoginScreen, setShowLoginScreen } =
+    useContext(LoginScreenContext);
   const { showRegisterScreen } = useContext(RegisterScreenContext);
 
   const notesStatusReducer = (state: NoteStatus, action: Actions) => {
@@ -48,7 +51,7 @@ const Notes = () => {
   });
 
   const getNotes = () => {
-    Axios.get("http://localhost:3001/notes", {
+    Axios.get(`${process.env.REACT_APP_API}/notes`, {
       headers: {
         authorization: localStorage.getItem("token"),
       },
@@ -64,15 +67,15 @@ const Notes = () => {
   };
 
   const addNote = () => {
-    if (noteStatus.title === "" || noteStatus.text === "" || !user) {
+    if (noteStatus.text === "" || !user) {
       setShowWrongFormScreen(true);
       return;
     }
 
     Axios.post(
-      "http://localhost:3001/addNote",
+      `${process.env.REACT_APP_API}/notes/add`,
       {
-        title: noteStatus.title,
+        title: noteStatus.title ? noteStatus.title : " ",
         text: noteStatus.text,
         position: allNotes.length,
       },
@@ -83,8 +86,13 @@ const Notes = () => {
       }
     ).then((res) => {
       if (!res.data.added) {
-        setUser(null);
-        setShowLoginScreen(true);
+        if (res.data.message === "failed to authenticate") {
+          setUser(null);
+          setShowLoginScreen(true);
+        } else {
+          setErrorMessage(res.data.message);
+          setShowWrongFormScreen(true);
+        }
         return;
       } else {
         getNotes();
@@ -119,7 +127,7 @@ const Notes = () => {
     if (removeNoteRef.current) {
       removeNoteRef.current.style.background = "";
     }
-    Axios.delete("http://localhost:3001/deleteNote", {
+    Axios.delete(`${process.env.REACT_APP_API}/notes/`, {
       headers: {
         authorization: localStorage.getItem("token"),
         id: noteToRemove,
@@ -128,6 +136,20 @@ const Notes = () => {
       if (res.data.deleted) getNotes();
     });
   };
+
+  const deleteMarked = () => {
+    if (markedNotes.length === 0) return;
+    Axios.delete(`${process.env.REACT_APP_API}/notes/deleteNotes`, {
+      headers: {
+        authorization: localStorage.getItem("token"),
+        notes: markedNotes,
+      },
+    }).then((res) => {
+      if (res.data.deleted) getNotes();
+    });
+  };
+
+  const { markedNotes } = useContext(RemoveNotesContext);
 
   return (
     <div
@@ -185,6 +207,7 @@ const Notes = () => {
         className="remove-notes"
       >
         <img
+          onClick={deleteMarked}
           onDrop={onDrop}
           onDragOver={onDragOver}
           className="bin-icon"
@@ -192,24 +215,16 @@ const Notes = () => {
           alt="bin icon"
         />
       </div>
-      <div
-        style={showWrongFormScreen ? {} : { display: "none" }}
-        className="wrong-form-fulfilled-screen-wrapper"
-      >
-        <div className="wrong-form-fulfilled-screen">
-          <p className="wrong-form-fulfilled-screen-message">
-            {!user
-              ? "YOU DONT HAVE ACCESS TO THIS SINCE YOU ARE NOT LOGGED IN"
-              : "FORM IS NOT FULFILLED CORRECTLY"}
-          </p>
-          <img
-            onClick={() => setShowWrongFormScreen(false)}
-            src={xIcon}
-            className="cancel-login-btn"
-            alt="cancel login"
-          />
-        </div>
-      </div>
+      <WrongFormScreen
+        showWrongFormScreen={showWrongFormScreen}
+        user={user}
+        setShowWrongFormScreen={setShowWrongFormScreen}
+        message={
+          errorMessage === null
+            ? "FORM IS NOT FULFILLED CORRECTLY"
+            : errorMessage
+        }
+      />
     </div>
   );
 };

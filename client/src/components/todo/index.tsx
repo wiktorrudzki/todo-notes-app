@@ -9,9 +9,10 @@ import { LoginScreenContext } from "../../contexts/LoginScreenProvider";
 import { TodosContext } from "../../contexts/TodosProvider";
 import Todo from "./components/Todo";
 import { todoStatusReducer } from "./components/todoStatusReducer";
-import WrongFormScreen from "./components/WrongFormScreen";
+import WrongFormScreen from "../WrongFormScreen";
 
 const TodoPage = () => {
+  const [errorMessage, setErrorMessage] = useState(null);
   const { user, setUser } = useContext(UserContext);
   const { allTodos, setAllTodos } = useContext(TodosContext);
   const [showWrongFormScreen, setShowWrongFormScreen] = useState(false);
@@ -30,14 +31,20 @@ const TodoPage = () => {
   // REQUESTS
 
   const getTodos = () => {
-    Axios.get("http://localhost:3001/todos", {
+    Axios.get(`${process.env.REACT_APP_API}/todos/`, {
       headers: {
         authorization: localStorage.getItem("token"),
       },
     }).then((res) => {
       if (res.data.data) {
+        let data = res.data.data;
+
+        data = data.map((todo: any) => {
+          let date = new Date(todo.todo_date);
+          return { ...todo, todo_date: date.toString().slice(4, 15) };
+        });
         setAllTodos(
-          res.data.data.sort((a: any, b: any) => {
+          data.sort((a: any, b: any) => {
             return a.todo_position - b.todo_position;
           })
         );
@@ -55,8 +62,8 @@ const TodoPage = () => {
 
     if (
       todoStatus.category === "" ||
-      todoStatus.progress === "" ||
       todoStatus.text === "" ||
+      todoStatus.date === "" ||
       !user
     ) {
       setShowWrongFormScreen(true);
@@ -64,7 +71,7 @@ const TodoPage = () => {
     }
 
     Axios.post(
-      "http://localhost:3001/addTodo",
+      `${process.env.REACT_APP_API}/todos/add`,
       {
         position: allTodos ? allTodos.length : 0,
         category: todoStatus.category,
@@ -79,10 +86,16 @@ const TodoPage = () => {
       }
     ).then((res) => {
       if (!res.data.added) {
-        setUser(null);
-        setShowLoginScreen(true);
+        if (res.data.message === "failed to authenticate") {
+          setUser(null);
+          setShowLoginScreen(true);
+        } else {
+          setErrorMessage(res.data.message);
+          setShowWrongFormScreen(true);
+        }
         return;
       } else {
+        setErrorMessage(null);
         getTodos();
       }
     });
@@ -100,8 +113,8 @@ const TodoPage = () => {
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     setAllTodos(items);
-    Axios.post(
-      "http://localhost:3001/updateIndex",
+    Axios.patch(
+      `${process.env.REACT_APP_API}/todos/updateIndex`,
       {
         id: result.draggableId,
         indexStart: result.source.index,
@@ -158,7 +171,10 @@ const TodoPage = () => {
             }
             className="todo-add-text todo-add-container-cell"
           />
-          <button className="todo-add-progress todo-add-container-cell">
+          <button
+            disabled
+            className="todo-add-progress todo-add-container-cell"
+          >
             TODO
           </button>
           <input
@@ -194,6 +210,7 @@ const TodoPage = () => {
                     {(provided) => {
                       return (
                         <div
+                          className="todo-draggable"
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           ref={provided.innerRef}
@@ -214,6 +231,11 @@ const TodoPage = () => {
         showWrongFormScreen={showWrongFormScreen}
         user={user}
         setShowWrongFormScreen={setShowWrongFormScreen}
+        message={
+          errorMessage === null
+            ? "FORM IS NOT FULFILLED CORRECTLY"
+            : errorMessage
+        }
       />
     </div>
   );

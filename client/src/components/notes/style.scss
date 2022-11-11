@@ -108,6 +108,16 @@
   padding-bottom: 0.75rem;
   cursor: pointer;
   transition: 0.5s all ease-out;
+  position: relative;
+}
+
+.note-checkbox {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 10%;
+  height: 10%;
+  outline: none;
 }
 
 .note-title-container {
@@ -151,6 +161,7 @@
 }
 
 .bin-icon {
+  cursor: pointer;
   width: 3rem;
   height: 3rem;
 }

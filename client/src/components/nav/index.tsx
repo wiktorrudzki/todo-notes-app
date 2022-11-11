@@ -41,7 +41,7 @@ const Nav = () => {
   const [windowSize, setWindowSize] = useState(getWindowSize());
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/rememberUser", {
+    Axios.get(`${process.env.REACT_APP_API}/user/remember`, {
       headers: {
         authorization: localStorage.getItem("token"),
       },
@@ -83,11 +83,10 @@ const Nav = () => {
       return;
     }
 
-    Axios.post("http://localhost:3001/login", {
+    Axios.post(`${process.env.REACT_APP_API}/user/login`, {
       username: loginStatus.username,
       password: loginStatus.password,
     }).then((res) => {
-      console.log(res.data.message);
       if (res.data.auth) {
         localStorage.setItem("token", "Bearer " + res.data.token);
         localStorage.setItem("user", res.data.id);
@@ -95,13 +94,11 @@ const Nav = () => {
         clearLoginStatus();
         setShowLoginScreen(false);
       } else {
-        if (res.data.message === "wrong username/password combination") {
-          dispatch({
-            type: "error",
-            payload: true,
-            errorMessage: "wrong username/password combination",
-          });
-        }
+        dispatch({
+          type: "error",
+          payload: true,
+          errorMessage: res.data.message,
+        });
       }
     });
   };
@@ -111,7 +108,6 @@ const Nav = () => {
   ) => {
     e.preventDefault();
     if (
-      loginStatus.error ||
       loginStatus.password === "" ||
       loginStatus.confirmPassword === "" ||
       loginStatus.username === ""
@@ -120,23 +116,28 @@ const Nav = () => {
       return;
     }
 
-    Axios.post("http://localhost:3001/register", {
+    if (loginStatus.error) {
+      dispatch({
+        type: "error",
+        payload: true,
+        errorMessage: loginStatus.errorMessage,
+      });
+    }
+
+    Axios.post(`${process.env.REACT_APP_API}/user/register`, {
       username: loginStatus.username,
       password: loginStatus.password,
       confirmPassword: loginStatus.confirmPassword,
     }).then((res) => {
-      console.log(res.data.message);
       if (res.data.created) {
         clearLoginStatus();
         setShowRegisterScreen(false);
       } else {
-        if (res.data.message === "username already taken") {
-          dispatch({
-            type: "error",
-            payload: true,
-            errorMessage: "username already taken",
-          });
-        }
+        dispatch({
+          type: "error",
+          payload: true,
+          errorMessage: res.data.message,
+        });
       }
     });
   };
